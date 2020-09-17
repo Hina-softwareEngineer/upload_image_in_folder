@@ -57,24 +57,24 @@ const checkFileType = (file, cb) => {
 };
 
 app.get("/", (req, res) => {
-  res.json({ name: "hina" });
+  res.render("index");
+  // res.json({ test: "successful" });
 });
-// res.render("index"));
 
 app.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      // res.render("index", { msg: err });
+      res.render("index", { msg: err });
     } else {
       console.log("req,", req.file);
-      // if (req.file === undefined) {
-      //   res.render("index", { msg: "Error : No file selected" });
-      // } else {
-      //   res.render("index", {
-      //     msg: "file uploaded",
-      //     file: `uploads/${req.file.filename}`,
-      //   });
-      // }
+      if (req.file === undefined) {
+        res.render("index", { msg: "Error : No file selected" });
+      } else {
+        res.render("index", {
+          msg: "file uploaded",
+          file: `uploads/${req.file.filename}`,
+        });
+      }
     }
     res.send("test");
   });
